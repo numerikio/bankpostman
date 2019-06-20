@@ -50,8 +50,7 @@ public class RaiffeisenBankRecordsProvider implements BankRecordsProvider {
         ) {
             for (int i = 0; i < strings.length; i++) {
                 BankRecords bankRec = new RaiffeisenBankRecords();
-                bankRec.setCodeEDRPU(strings[0]);
-                bankRec.setX(strings[7]);
+                bankRec.setEDRPOU(strings[0]);
 
                bankRecords.add((RaiffeisenBankRecords) bankRec);
             }

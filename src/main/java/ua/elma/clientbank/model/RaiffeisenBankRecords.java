@@ -1,7 +1,9 @@
 package ua.elma.clientbank.model;
 
-import ua.elma.clientbank.model.BankRecords;
 
+import javax.persistence.Entity;
+
+@Entity
 public class RaiffeisenBankRecords extends BankRecords {
 
     private String massege;

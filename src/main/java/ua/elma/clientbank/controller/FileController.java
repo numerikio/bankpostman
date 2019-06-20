@@ -58,7 +58,6 @@ public class FileController {
         for (BankRecords records: bankRecordsProvider.getBRlist()
         ) {
             System.out.println(records.getEDRPOU());
-            System.out.println(records.getX());
         }
 
     }
