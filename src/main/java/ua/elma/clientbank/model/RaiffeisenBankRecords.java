@@ -1,4 +1,6 @@
-package ua.elma.clientbank;
+package ua.elma.clientbank.model;
+
+import ua.elma.clientbank.model.BankRecords;
 
 public class RaiffeisenBankRecords extends BankRecords {
 

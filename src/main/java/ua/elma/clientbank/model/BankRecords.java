@@ -1,16 +1,17 @@
-package ua.elma.clientbank;
+package ua.elma.clientbank.model;
 
 public abstract class BankRecords {
 
     private long id;
-    private String codeEDRPU;
 
-    public String getCodeEDRPU() {
-        return codeEDRPU;
+    private String EDRPOU;
+
+    public String getEDRPOU() {
+        return EDRPOU;
     }
 
-    public void setCodeEDRPU(String codeEDRPU) {
-        this.codeEDRPU = codeEDRPU;
+    public void setCodeEDRPU(String EDRPOU) {
+        this.EDRPOU = EDRPOU;
     }
 
     public String getX() {

@@ -1,16 +1,19 @@
-package ua.elma.clientbank;
+package ua.elma.clientbank.service;
 
 import com.opencsv.CSVParser;
 import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
-
+import org.springframework.stereotype.Service;
+import ua.elma.clientbank.model.BankRecords;
+import ua.elma.clientbank.model.RaiffeisenBankRecords;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class RaiffeisenBankRecordsProvider implements BankRecordsProvider {
-    String file = "export.csv";
+    String file = "/home/user/BP/export.csv";
     String charsetName ="Windows-1251";
     List<RaiffeisenBankRecords> bankRecords = new ArrayList<>();
 
