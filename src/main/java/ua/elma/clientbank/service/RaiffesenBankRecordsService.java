@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface RaiffesenBankRecordsService {
     void saveBankRecords(RaiffeisenBankRecords bankRecords);
+    RaiffeisenBankRecords getOne (String legalPersonID, String purposeOfPayment, Double sum);
     List<RaiffeisenBankRecords> findAllBR();
 }

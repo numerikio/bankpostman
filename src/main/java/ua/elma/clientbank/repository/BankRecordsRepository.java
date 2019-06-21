@@ -8,4 +8,6 @@ import java.io.Serializable;
 
 @NoRepositoryBean
 public interface BankRecordsRepository <T extends BankRecords, ID extends Serializable> extends JpaRepository<T, ID> {
+
+     T findByLegalPersonIDAndPurposeOfPaymentAndSum(String legalPersonID, String purposeOfPayment, Double sum);
 }
