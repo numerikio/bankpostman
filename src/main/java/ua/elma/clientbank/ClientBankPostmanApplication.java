@@ -13,6 +13,5 @@ public class ClientBankPostmanApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ClientBankPostmanApplication.class, args);
-
 	}
 }
