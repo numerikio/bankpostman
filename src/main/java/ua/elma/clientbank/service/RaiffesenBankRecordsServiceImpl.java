@@ -16,9 +16,12 @@ public class RaiffesenBankRecordsServiceImpl implements RaiffesenBankRecordsServ
 
     @Override
     public void saveBankRecords(RaiffeisenBankRecords bankRecords) {
-if(recordsRepository.findAll().indexOf(bankRecords)==-1) {
-    recordsRepository.save(bankRecords);
-}
+        recordsRepository.save(bankRecords);
+    }
+
+    @Override
+    public RaiffeisenBankRecords getOne(String legalPersonID, String purposeOfPayment, Double sum) {
+        return recordsRepository.findByLegalPersonIDAndPurposeOfPaymentAndSum(legalPersonID, purposeOfPayment, sum);
     }
 
     @Override

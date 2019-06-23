@@ -27,17 +27,18 @@ public class FileController {
 
     @PostMapping("/uploadMultipleFiles")
     public void uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
-        for (MultipartFile multipartFile:files) {
+        for (MultipartFile multipartFile : files) {
             fileStorageService.storeFile(multipartFile);
         }
         printtt();
     }
 
-    private void printtt(){
+    private void printtt() {
 
-        for (BankRecords records: bankRecordsProvider.getBRlist()
+        for (BankRecords records : bankRecordsProvider.getBRlist()
         ) {
-            raiffesenBankRecordsService.saveBankRecords((RaiffeisenBankRecords) records);
+            if (raiffesenBankRecordsService.getOne(records.getLegalPersonID(), records.getPurposeOfPayment(), records.getSum())==null)
+                raiffesenBankRecordsService.saveBankRecords((RaiffeisenBankRecords) records);
         }
 
     }

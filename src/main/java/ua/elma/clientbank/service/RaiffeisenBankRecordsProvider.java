@@ -6,14 +6,15 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import org.springframework.stereotype.Service;
 import ua.elma.clientbank.model.RaiffeisenBankRecords;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class RaiffeisenBankRecordsProvider implements BankRecordsProvider {
-    String file = "/home/user/BP/export2.csv";
-    String charsetName ="Windows-1251";
+    String file = "/home/user/BP/export.csv";
+    String charsetName = "Windows-1251";
     List<RaiffeisenBankRecords> bankRecords = new ArrayList<>();
 
     @Override
@@ -41,11 +42,11 @@ public class RaiffeisenBankRecordsProvider implements BankRecordsProvider {
         } catch (IOException e) {
             e.printStackTrace();
         }
-       return null;
+        return null;
     }
 
-    private List<RaiffeisenBankRecords> addBankRecords(List<String[]> list){
-        for (String[] strings: list
+    private List<RaiffeisenBankRecords> addBankRecords(List<String[]> list) {
+        for (String[] strings : list
         ) {
             RaiffeisenBankRecords bankRec = new RaiffeisenBankRecords();
             for (int i = 0; i < strings.length; i++) {
@@ -62,9 +63,9 @@ public class RaiffeisenBankRecordsProvider implements BankRecordsProvider {
                 bankRec.setCorrespondentLegalPersonID(Long.valueOf(strings[9]));
                 bankRec.setCorrespondentName(strings[10]);
                 bankRec.setDocument(strings[11]);
-            //    bankRec.setDocumentDate(new LocalDate(strings[12]));          <----------------- to do like service
-            //    bankRec.setDebit(Double.valueOf(strings[13]));
-            //    bankRec.setCredit(Double.valueOf(strings[14]));
+                //    bankRec.setDocumentDate(new LocalDate(strings[12]));          <----------------- to do like service
+                //    bankRec.setDebit(Double.valueOf(strings[13]));
+                //    bankRec.setCredit(Double.valueOf(strings[14]));
                 bankRec.setPurposeOfPayment(strings[15]);
                 bankRec.setSum(Double.valueOf(strings[16]));
             }
