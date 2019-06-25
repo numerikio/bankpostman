@@ -8,23 +8,64 @@ import org.springframework.stereotype.Service;
 import ua.elma.clientbank.model.RaiffeisenBankRecords;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class RaiffeisenBankRecordsProvider implements BankRecordsProvider {
-    String file = "/home/user/BP/export.csv";
-    String charsetName = "Windows-1251";
-    List<RaiffeisenBankRecords> bankRecords = new ArrayList<>();
+    private String dir = "/home/user/BP/";
+    private String charsetName = "Windows-1251";
+    private char separator = ';';
+    private String extension = ".csv";
+    private List<RaiffeisenBankRecords> bankRecords = new ArrayList<>();
+
+    public RaiffeisenBankRecordsProvider() {
+    }
+
+    private String getListFileNames(String extension) {
+        List<String> list = new ArrayList<>();
+        File direct = new File(dir);
+        if (direct.isDirectory()) {
+            for (File item : direct.listFiles()) {
+                if (item.getName().endsWith(extension)) {
+                    list.add(item.getName());
+                }
+            }
+        }
+        for (String f : list) {
+            System.out.println(f);
+        }
+        return list.get(0);
+    }
+
+    private void fileRename(String _file) {
+        File file = new File(_file);
+        String pref = "";
+        String sux = "";
+        int pos = file.getName().lastIndexOf(".");
+        if (pos > 0) {
+            pref = file.getName().substring(0, pos);
+            System.out.println(pref);
+            sux = file.getName().substring(pos);
+            System.out.println(sux);
+        }
+        if (!file.getName().contains("_ttt_")) {
+            System.out.println(pref + "_ttt_" + LocalDate.now() + sux);
+            file.renameTo(new File(dir + pref + "_ttt_" + LocalDate.now() + sux));
+            System.out.println(file.getName());
+        }
+    }
 
     @Override
     public List<RaiffeisenBankRecords> getBRlist() {
+        String file = dir + getListFileNames(extension);
         try (BufferedReader reader = new BufferedReader(
                 new InputStreamReader(
                         new FileInputStream(
-                                new File(file)), charsetName))) {
+                                new File(file)), charsetName))) {  //<---- to DO
             CSVParser parser = new CSVParserBuilder()
-                    .withSeparator(';')
+                    .withSeparator(separator)
                     .withIgnoreQuotations(true)
                     .build();
 
@@ -41,13 +82,14 @@ public class RaiffeisenBankRecordsProvider implements BankRecordsProvider {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }finally {
+            fileRename(file);
         }
         return null;
     }
 
     private List<RaiffeisenBankRecords> addBankRecords(List<String[]> list) {
-        for (String[] strings : list
-        ) {
+        for (String[] strings : list) {
             RaiffeisenBankRecords bankRec = new RaiffeisenBankRecords();
             for (int i = 0; i < strings.length; i++) {
 
@@ -67,7 +109,7 @@ public class RaiffeisenBankRecordsProvider implements BankRecordsProvider {
                 //    bankRec.setDebit(Double.valueOf(strings[13]));
                 //    bankRec.setCredit(Double.valueOf(strings[14]));
                 bankRec.setPurposeOfPayment(strings[15]);
-                bankRec.setSum(Double.valueOf(strings[16]));
+                bankRec.setSum(Double.valueOf(strings[strings.length - 1]));
             }
             bankRecords.add((RaiffeisenBankRecords) bankRec);
         }
